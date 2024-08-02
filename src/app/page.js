@@ -20,11 +20,15 @@ export default function Home() {
   };
 
   const handleSubmit = async () => {
+    if (!data) {
+      message.error("Please provide a valid data");
+      return;
+    }
     try {
       const parsedData = JSON.parse(data);
       const response = await postData(parsedData);
       if (response) {
-        message.success("Data processed");
+        message.success("Data processed.");
         setResponseData(response?.data);
       }
     } catch (err) {
@@ -66,23 +70,23 @@ export default function Home() {
           onChange={handleChange}
           options={options}
         />
-        {filteredResponse && (
+        {responseData?.is_success && (
           <>
-            <div>
-              <h3 className="font-semibold">Response Data:</h3>
-              <pre>{JSON.stringify(responseData, null, 2)}</pre>
-            </div>
             {Object.keys(filteredResponse).length > 0 && (
               <div className="mt-5">
-                <h3 className="font-semibold">Filtered Response:</h3>
+                <h3 className="font-semibold mb-2">Filtered Response:</h3>
                 {Object.keys(filteredResponse).map((key) => (
-                  <div key={key} className="flex gap-2">
+                  <div key={key} className="flex gap-2 mb-2">
                     <p>{key}:</p>
                     <p>{Array.isArray(filteredResponse[key]) ? filteredResponse[key].join(", ") : JSON.stringify(filteredResponse[key])}</p>
                   </div>
                 ))}
               </div>
             )}
+            <div>
+              <h3 className="font-semibold">Response Data:</h3>
+              <pre>{JSON.stringify(responseData, null, 2)}</pre>
+            </div>
           </>
         )}
       </div>
