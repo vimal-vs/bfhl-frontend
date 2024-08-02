@@ -44,8 +44,8 @@ export default function Home() {
   }, {});
 
   return (
-    <div className="min-h-screen flex flex-col justify-center items-center">
-      <div className="w-[400px] space-y-8">
+    <div className="min-h-screen flex flex-col justify-center items-center py-20">
+      <div className="w-[90%] md:w-[400px] space-y-8">
         <TextField
           id="outlined-basic"
           label="API Input"
